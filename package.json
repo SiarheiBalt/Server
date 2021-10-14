@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "server for MusicStudio",
+  "main": "app.js",
+  "scripts": {
+    "server": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SiarheiBalt/Server.git"
+  },
+  "author": "Siarhei Baltsevich",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SiarheiBalt/Server/issues"
+  },
+  "homepage": "https://github.com/SiarheiBalt/Server#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.6",
+    "express": "^4.17.1",
+    "express-validator": "^6.13.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.10"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
