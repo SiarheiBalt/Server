@@ -4,7 +4,8 @@
   "description": "server for MusicStudio",
   "main": "app.js",
   "scripts": {
-    "server": "nodemon app.js"
+    "server": "nodemon app.js",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",

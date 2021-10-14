@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 
 const app = express(); //сервер
 
+app.use(express.json({ extended: true })); //чтоб корректо парсил body
+
+app.use('/api/auth', require('./routes/auth.routes')); // роут авторизации
+
 const PORT = config.get('port') || 5000;
 
 async function start() {
