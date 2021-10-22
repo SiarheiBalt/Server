@@ -50,7 +50,6 @@ router.post(
 router.post(
   '/login',
   [
-    //валидатор - можно удалить и написать на фронте
     check('email', 'Введите корректный email').normalizeEmail().isEmail(),
     check('password', 'Введите пароль').exists(),
   ],
