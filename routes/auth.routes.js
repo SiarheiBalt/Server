@@ -13,6 +13,7 @@ router.post(
     //валидация
     check('email', 'Некоректный email').isEmail(),
     check('password', 'Минимальная длинна 6 символов').isLength({ min: 6 }),
+    check('name', 'Минимальная длинна 3 символа').isLength({ min: 3 }),
   ],
 
   async (req, res) => {
@@ -25,7 +26,7 @@ router.post(
           message: 'Некоректные данные при регистрации',
         });
       }
-      const { email, password } = req.body;
+      const { email, password, name } = req.body;
       const candidate = await User.findOne({ email }); // Проверка есть ли такой email
       if (candidate) {
         return res.status
@@ -34,7 +35,7 @@ router.post(
       }
 
       const hashePassword = await bcrypt.hash(password, 12); //шифрование пароля
-      const user = new User({ email, password: hashePassword }); //создание пользователя
+      const user = new User({ email, password: hashePassword, name }); //создание пользователя
 
       await user.save();
 
@@ -64,9 +65,9 @@ router.post(
       }
 
       const { email, password } = req.body;
-      console.log(email);
+
       const user = await User.findOne({ email }); //Ищу пользователя
-      console.log(user);
+
       if (!user) {
         return res.status(400).json({ message: 'Пользователь не найден' });
       }
@@ -84,7 +85,7 @@ router.post(
         { expiresIn: '1h' } //через сколько jwt токен перестанет существовать
       );
 
-      res.json({ token, userId: user.id }); //передаю на фронт
+      res.json({ token, userId: user.id, name: user.name }); //передаю на фронт
     } catch (err) {
       res.status(500).json({ message: 'Something went wrong' });
     }
