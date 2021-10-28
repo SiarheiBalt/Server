@@ -11,9 +11,9 @@ router.post(
   '/register',
   [
     //валидация
-    check('email', 'Некоректный email').isEmail(),
-    check('password', 'Минимальная длинна 6 символов').isLength({ min: 6 }),
-    check('name', 'Минимальная длинна 3 символа').isLength({ min: 3 }),
+    check('email', 'Incorrect email').isEmail(),
+    check('password', 'Minimum length 6 characters').isLength({ min: 6 }),
+    check('name', 'Minimum length 3 characters').isLength({ min: 3 }),
   ],
 
   async (req, res) => {
@@ -23,7 +23,7 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          message: 'Некоректные данные при регистрации',
+          message: 'Incorrect registration data',
         });
       }
       const { email, password, name } = req.body;
@@ -31,7 +31,7 @@ router.post(
       if (candidate) {
         return res.status
           .apply(400)
-          .json({ message: 'Такой пользователь уже существует' });
+          .json({ message: 'This user already exists' });
       }
 
       const hashePassword = await bcrypt.hash(password, 12); //шифрование пароля
@@ -39,9 +39,9 @@ router.post(
 
       await user.save();
 
-      res.status(201).json({ message: 'Пользователь создан' });
+      res.status(201).json({ message: 'User created' });
     } catch (err) {
-      res.status(500).json({ message: 'Такой пользователь уже существует' });
+      res.status(500).json({ message: 'This user already exists' });
     }
   }
 );
@@ -51,8 +51,8 @@ router.post(
   '/login',
   [
     //валидатор - можно удалить и написать на фронте
-    check('email', 'Введите корректный email').normalizeEmail().isEmail(),
-    check('password', 'Введите пароль').exists(),
+    check('email', 'Please enter a valid email').normalizeEmail().isEmail(),
+    check('password', 'Enter password').exists(),
   ],
   async (req, res) => {
     try {
@@ -60,7 +60,7 @@ router.post(
       if (!errors.isEmpty()) {
         return res.status(400).json({
           errors: errors.array(),
-          message: 'Некоректные данные при входе в систему',
+          message: 'Incorrect login data',
         });
       }
 
@@ -69,14 +69,14 @@ router.post(
       const user = await User.findOne({ email }); //Ищу пользователя
 
       if (!user) {
-        return res.status(400).json({ message: 'Пользователь не найден' });
+        return res.status(400).json({ message: 'User is not found' });
       }
       const isMatch = await bcrypt.compare(password, user.password); //Сравниваю пароли
 
       if (!isMatch) {
         return res
           .status(400)
-          .json({ message: 'Неверный пароль попробуйте снова' });
+          .json({ message: 'Invalid password please try again' });
       }
       // формирование токена
       const token = jwt.sign(
