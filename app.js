@@ -1,6 +1,7 @@
 const express = require('express');
 const config = require('config');
 const mongoose = require('mongoose');
+const { createRoomsData } = require('./data/initData');
 
 const app = express(); //сервер
 
@@ -20,5 +21,7 @@ async function start() {
 }
 
 start();
+
+// createRoomsData();
 
 app.listen(5000, () => console.log(`App has been started on port ${PORT}...`));
