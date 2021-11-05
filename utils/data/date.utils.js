@@ -1,9 +1,6 @@
 const { addDays, getYear, eachDayOfInterval, format } = require('date-fns');
 const { ru } = require('date-fns/locale');
 
-// import { addDays, getYear, eachDayOfInterval } from 'date-fns';
-// import { format } from 'date-fns';
-// import { ru } from 'date-fns/locale';
 const today = new Date();
 const twoMontsFromNow = addDays(today, 62);
 const twoMonthsArray = eachDayOfInterval({
