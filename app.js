@@ -3,7 +3,7 @@ const config = require('config');
 const mongoose = require('mongoose');
 const { createRoomsData } = require('./utils/data/initdata.utils');
 
-const app = express(); //сервер
+const app = express();
 
 app.use(express.json({ extended: true })); //чтоб корректо парсил body
 
