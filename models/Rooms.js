@@ -1,4 +1,4 @@
-const { Schema, modelgit } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const schema = new Schema([
   {
