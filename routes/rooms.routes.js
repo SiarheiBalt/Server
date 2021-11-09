@@ -1,7 +1,8 @@
 const { Router } = require('express');
+const { isAuth } = require('../middleWare/auth.middleware');
+const { checkReserveError } = require('../middleWare/room.middleware');
 const Rooms = require('../models/Rooms');
 const router = Router();
-const UserOrder = require('../models/UserOrder');
 const { addReserveToNewDates } = require('../utils/commonFunc.utils');
 const { createUserOrder } = require('../utils/rooms.utils');
 
@@ -34,12 +35,13 @@ router.get('/dates', async (req, res) => {
 });
 
 // /api/rooms/time   Reserve selected time
-router.post('/time', async (req, res) => {
+router.post('/time', isAuth, checkReserveError, async (req, res) => {
   const { name, dayId, reserveTime, userId } = req.body;
   const body = req.body;
 
   const room = await Rooms.find({ name }); //find room
   const roomDates = room[0].dates; //array with dates in the room
+
   const newDates = addReserveToNewDates(roomDates, dayId, reserveTime, userId);
   await Rooms.updateOne({ name }, { $set: { dates: newDates } });
 

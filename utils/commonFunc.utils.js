@@ -15,3 +15,19 @@ exports.addReserveToNewDates = (dates, dayId, reserveTime, userId) => {
   });
   return newDates;
 };
+
+exports.checkTime = (dates, dayId, reserveTime) => {
+  let result = true;
+  dates.forEach((day) => {
+    if (dayId === day.id) {
+      day.reserveTime.forEach((hourInfo) => {
+        const hour = hourInfo.hour;
+        const findHour = reserveTime.some((el) => el === hour);
+        if (findHour) {
+          if (hourInfo.isFree === false) result = false;
+        }
+      });
+    }
+  });
+  return result;
+};
