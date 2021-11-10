@@ -1,15 +1,18 @@
 const express = require('express');
 const config = require('config');
 const mongoose = require('mongoose');
+const authRoutes = require('./routes/auth.routes');
+const roomsRoutes = require('./routes/rooms.routes');
+
 const { createRoomsData } = require('./utils/data/initdata.utils');
 
 const app = express();
 
-app.use(express.json({ extended: true })); //чтоб корректо парсил body
+app.use(express.json({ extended: true }));
 
-app.use('/api/auth', require('./routes/auth.routes')); // роут авторизации
+app.use('/api/auth', authRoutes);
 
-app.use('/api/rooms', require('./routes/rooms.routes'));
+app.use('/api/rooms', roomsRoutes);
 
 const PORT = config.get('port') || 5000;
 
@@ -18,7 +21,7 @@ async function start() {
     await mongoose.connect(config.get('mongoUri'), {});
   } catch (err) {
     console.log('Server error', err.message);
-    process.exit(1); // Выход из процесса node.js
+    process.exit(1);
   }
 }
 

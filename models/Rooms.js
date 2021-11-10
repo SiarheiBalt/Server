@@ -4,11 +4,7 @@ const schema = new Schema([
   {
     dates: [
       {
-        date: { type: String },
-        dayofWeek: { type: String },
-        monthName: { type: String },
-        month: { type: String },
-        year: { type: Number },
+        date: { type: Date },
         reserveTime: [
           {
             hour: { type: String },

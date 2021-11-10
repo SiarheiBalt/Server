@@ -1,9 +1,11 @@
 const { Router } = require('express');
 const { isAuth } = require('../middleWare/auth.middleware');
-const { checkReserveError } = require('../middleWare/room.middleware');
 const Rooms = require('../models/Rooms');
 const router = Router();
-const { addReserveToNewDates } = require('../utils/commonFunc.utils');
+const {
+  addReserveToNewDates,
+  checkTime,
+} = require('../utils/commonFunc.utils');
 const { createUserOrder } = require('../utils/rooms.utils');
 
 // /api/rooms/all
@@ -35,16 +37,22 @@ router.get('/dates', async (req, res) => {
 });
 
 // /api/rooms/time   Reserve selected time
-router.post('/time', isAuth, checkReserveError, async (req, res) => {
+router.post('/time', isAuth, async (req, res) => {
   const { name, dayId, reserveTime, userId } = req.body;
-  const body = req.body;
 
   const room = await Rooms.find({ name }); //find room
   const roomDates = room[0].dates; //array with dates in the room
 
+  const isTimeReserved = !checkTime(roomDates, dayId, reserveTime);
+  if (isTimeReserved) {
+    return res.status(400).json({ message: 'time is not free' });
+  }
+
   const newDates = addReserveToNewDates(roomDates, dayId, reserveTime, userId);
+
   await Rooms.updateOne({ name }, { $set: { dates: newDates } });
 
+  const body = req.body;
   createUserOrder(body);
 
   res.status(201).json({ message: 'time reserved' });
