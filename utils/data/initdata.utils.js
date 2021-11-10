@@ -13,10 +13,11 @@ exports.createRoomsData = async () => {
     const db = client.db(dbName);
 
     // Use the collection "rooms"
-    const col = db.collection('rooms');
+    const colRecords = db.collection('records');
+    const colRooms = db.collection('rooms');
 
     // Construct a document
-    let personDocument = [
+    let rooms = [
       {
         dates: createReserveData(),
         name: 'big',
@@ -29,8 +30,21 @@ exports.createRoomsData = async () => {
       },
     ];
 
-    await col.insertOne(personDocument[0]);
-    await col.insertOne(personDocument[1]);
+    let records = [
+      {
+        dates: createReserveData(),
+        name: 'solo',
+        id: Math.random().toString(36).substr(2, 9),
+      },
+      {
+        dates: createReserveData(),
+        name: 'live',
+        id: Math.random().toString(36).substr(2, 9),
+      },
+    ];
+
+    await colRooms.insertMany(rooms);
+    await colRecords.insertMany(records);
   } catch (err) {
     console.log(err.stack);
   } finally {

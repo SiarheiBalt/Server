@@ -14,6 +14,8 @@ app.use('/api/auth', authRoutes);
 
 app.use('/api/rooms', roomsRoutes);
 
+app.use('/api/records', require('./routes/records.routes'));
+
 const PORT = config.get('port') || 5000;
 
 async function start() {
