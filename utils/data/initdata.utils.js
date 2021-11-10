@@ -12,7 +12,7 @@ exports.createRoomsData = async () => {
     console.log('Connected correctly to server');
     const db = client.db(dbName);
 
-    // Use the collection "rooms"
+    // Use collections
     const colRecords = db.collection('records');
     const colRooms = db.collection('rooms');
 

@@ -3,6 +3,7 @@ const config = require('config');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth.routes');
 const roomsRoutes = require('./routes/rooms.routes');
+const recordRoutes = require('./routes/records.routes');
 
 const { createRoomsData } = require('./utils/data/initdata.utils');
 
@@ -14,7 +15,7 @@ app.use('/api/auth', authRoutes);
 
 app.use('/api/rooms', roomsRoutes);
 
-app.use('/api/records', require('./routes/records.routes'));
+app.use('/api/records', recordRoutes);
 
 const PORT = config.get('port') || 5000;
 

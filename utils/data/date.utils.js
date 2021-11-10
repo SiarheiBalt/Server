@@ -1,5 +1,4 @@
-const { addDays, getYear, eachDayOfInterval, format } = require('date-fns');
-const { ru } = require('date-fns/locale');
+const { addDays, eachDayOfInterval, format } = require('date-fns');
 
 const today = new Date();
 const twoMontsFromNow = addDays(today, 62);
@@ -10,13 +9,8 @@ const twoMonthsArray = eachDayOfInterval({
 
 function getData(dateArray) {
   return dateArray.map((date) => {
-    const month = date.getMonth();
     return {
       date,
-      dayofWeek: format(new Date(date), 'eeee', { locale: ru }),
-      monthName: format(new Date(date), 'MMMM', { locale: ru }),
-      month,
-      year: getYear(date),
       reserveTime: [
         {
           hour: '10:00',

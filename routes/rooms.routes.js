@@ -40,8 +40,8 @@ router.get('/dates', async (req, res) => {
 router.post('/time', isAuth, async (req, res) => {
   const { name, dayId, reserveTime, userId } = req.body;
 
-  const room = await Rooms.find({ name }); //find room
-  const roomDates = room[0].dates; //array with dates in the room
+  const room = await Rooms.find({ name });
+  const roomDates = room[0].dates;
 
   const isTimeReserved = !checkTime(roomDates, dayId, reserveTime);
   if (isTimeReserved) {
