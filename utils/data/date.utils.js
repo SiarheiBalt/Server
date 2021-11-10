@@ -12,7 +12,11 @@ function getData(dateArray) {
   return dateArray.map((date) => {
     const month = date.getMonth();
     return {
-      date: new Date(),
+      date,
+      dayofWeek: format(new Date(date), 'eeee', { locale: ru }),
+      monthName: format(new Date(date), 'MMMM', { locale: ru }),
+      month,
+      year: getYear(date),
       reserveTime: [
         {
           hour: '10:00',
