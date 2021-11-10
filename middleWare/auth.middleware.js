@@ -1,6 +1,8 @@
 const { validationResult } = require('express-validator');
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
 
 exports.checkRegistrationError = async (req, res, next) => {
   if (req.method === 'OPTIONS') {
@@ -54,5 +56,24 @@ exports.checkLoginError = async (req, res, next) => {
     next();
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong' });
+  }
+};
+
+exports.isAuth = (req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return next();
+  }
+
+  try {
+    const token = req.body.auth;
+    if (!token) {
+      return res.status(401).json({ message: 'Нет авторизации' });
+    }
+
+    const decoded = jwt.verify(token, config.get('jwtSecret'));
+    req.user = decoded;
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: 'Нет авторизации' });
   }
 };
