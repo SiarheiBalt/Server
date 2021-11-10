@@ -11,6 +11,8 @@ app.use('/api/auth', require('./routes/auth.routes')); // роут автори�
 
 app.use('/api/rooms', require('./routes/rooms.routes'));
 
+app.use('/api/records', require('./routes/records.routes'));
+
 const PORT = config.get('port') || 5000;
 
 async function start() {
