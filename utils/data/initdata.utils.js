@@ -44,9 +44,9 @@ exports.createDB = async () => {
       },
     ];
 
-    // await colRooms.insertMany(rooms);
-    // await colRecords.insertMany(records);
-    // await colInstruments.insertMany(instruments);
+    await colRooms.insertMany(rooms);
+    await colRecords.insertMany(records);
+    await colInstruments.insertMany(instruments);
   } catch (err) {
     console.log(err.stack);
   } finally {

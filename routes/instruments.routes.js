@@ -59,7 +59,7 @@ router.post('/time', isAuth, async (req, res) => {
   await Instruments.updateOne({ name }, { $set: { dates: newDates } });
 
   const body = req.body;
-  // createUserOrder(body);
+  createUserOrder(body);
 
   res.status(201).json({ message: 'time reserved' });
   try {

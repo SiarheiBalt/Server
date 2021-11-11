@@ -16,6 +16,6 @@ exports.createToken = (user) => {
   return jwt.sign(
     { userId: user.id }, // данные которые будут зашифрованы
     config.get('jwtSecret'), //секретный ключ
-    { expiresIn: '1h' } //через сколько jwt токен перестанет существовать
+    { expiresIn: '8h' } //через сколько jwt токен перестанет существовать
   );
 };
