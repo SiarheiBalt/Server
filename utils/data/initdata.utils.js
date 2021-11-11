@@ -6,17 +6,18 @@ const client = new MongoClient(config.get('mongoUri'));
 
 const dbName = 'myFirstDatabase';
 
-exports.createRoomsData = async () => {
+const { instruments } = require('./InstrumentsinitData');
+
+exports.createDB = async () => {
   try {
     await client.connect();
     console.log('Connected correctly to server');
     const db = client.db(dbName);
 
-    // Use collections
     const colRecords = db.collection('records');
     const colRooms = db.collection('rooms');
+    const colInstruments = db.collection('instruments');
 
-    // Construct a document
     let rooms = [
       {
         dates: createReserveData(),
@@ -43,8 +44,9 @@ exports.createRoomsData = async () => {
       },
     ];
 
-    await colRooms.insertMany(rooms);
-    await colRecords.insertMany(records);
+    // await colRooms.insertMany(rooms);
+    // await colRecords.insertMany(records);
+    // await colInstruments.insertMany(instruments);
   } catch (err) {
     console.log(err.stack);
   } finally {
