@@ -20,7 +20,7 @@ router.get('/all', async (req, res) => {
 });
 
 // /api/instruments/dates   Take a day in a chosen room
-router.get('/dates', async (req, res) => {
+router.post('/dates', async (req, res) => {
   const { name, dayId } = req.body;
   try {
     const instrument = await Instruments.find(
