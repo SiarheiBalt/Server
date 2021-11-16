@@ -3,10 +3,10 @@ const { isAuth } = require('../middleWare/auth.middleware');
 const Orders = require('../models/UserOrder');
 const router = Router();
 
-router.get('/', isAuth, async (req, res) => {
+router.post('/all', isAuth, async (req, res) => {
   try {
-    const orders = await Orders.find({ owner: req.user.userId });
-    res.json(orders);
+    const orders = await Orders.find({ owner: req.body.userId });
+    res.status(200).json(orders);
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong, please try again' });
   }
