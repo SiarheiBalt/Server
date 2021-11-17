@@ -1,7 +1,6 @@
 const UserOrder = require('../models/UserOrder');
 
 exports.createUserOrder = async (body) => {
-  console.log(body);
   const { type, name, dayId, reserveTime, date, orderId, actionTime, userId } =
     body;
 
@@ -15,4 +14,9 @@ exports.createUserOrder = async (body) => {
     owner: userId,
   });
   await userOrder.save();
+};
+
+exports.delUserOrder = async (id) => {
+  const succes = await UserOrder.deleteOne({ _id: id });
+  return succes.deletedCount;
 };
