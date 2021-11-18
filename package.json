@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "server": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "createDB" :"node utils/data/initdata.utils.js"
   },
   "repository": {
     "type": "git",

@@ -8,7 +8,7 @@ const dbName = 'myFirstDatabase';
 
 const { instruments } = require('./InstrumentsinitData');
 
-exports.createDB = async () => {
+const createDB = async () => {
   try {
     await client.connect();
     console.log('Connected correctly to server');
@@ -53,3 +53,5 @@ exports.createDB = async () => {
     await client.close();
   }
 };
+
+createDB();

@@ -7,8 +7,6 @@ const recordRoutes = require('./routes/records.routes');
 const instrumentsRoutes = require('./routes/instruments.routes');
 const ordersRoutes = require('./routes/orders.routes');
 
-const { createDB } = require('./utils/data/initdata.utils');
-
 const app = express();
 
 app.use(express.json({ extended: true }));
@@ -31,7 +29,5 @@ async function start() {
 }
 
 start();
-
-// createDB();
 
 app.listen(5000, () => console.log(`App has been started on port ${PORT}...`));
