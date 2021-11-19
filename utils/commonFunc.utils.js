@@ -31,3 +31,21 @@ exports.checkTime = (dates, dayId, reserveTime) => {
   });
   return result;
 };
+
+exports.cancelReserveToNewDates = (dates, dayId, reserveTime) => {
+  const newDates = dates.map((day) => {
+    if (dayId === day.id) {
+      day.reserveTime = day.reserveTime.map((hourInfo) => {
+        const hour = hourInfo.hour;
+        const findHour = reserveTime.some((el) => el === hour);
+        if (findHour) {
+          hourInfo.isFree = true; //отмена резерва
+          hourInfo.customer = null;
+        }
+        return hourInfo;
+      });
+    }
+    return day;
+  });
+  return newDates;
+};

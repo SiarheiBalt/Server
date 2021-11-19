@@ -10,9 +10,13 @@ exports.createUserOrder = async (body) => {
     dayId,
     reserveTime,
     date,
-    orderId,
     actionTime,
     owner: userId,
   });
   await userOrder.save();
+};
+
+exports.delUserOrder = async (id) => {
+  const succes = await UserOrder.deleteOne({ _id: id });
+  return succes.deletedCount;
 };

@@ -3,6 +3,8 @@ const User = require('../models/User');
 const config = require('config');
 const jwt = require('jsonwebtoken');
 
+const tokenTerm = config.get('expiresIn');
+
 exports.createUser = async (email, password, name) => {
   const difficultyEncryption = 12;
   const hashePassword = await bcrypt.hash(password, difficultyEncryption); //шифрование пароля
@@ -16,6 +18,6 @@ exports.createToken = (user) => {
   return jwt.sign(
     { userId: user.id }, // данные которые будут зашифрованы
     config.get('jwtSecret'), //секретный ключ
-    { expiresIn: '1h' } //через сколько jwt токен перестанет существовать
+    { expiresIn: tokenTerm } //через сколько jwt токен перестанет существовать
   );
 };
