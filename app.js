@@ -6,6 +6,7 @@ const roomsRoutes = require('./routes/rooms.routes');
 const recordRoutes = require('./routes/records.routes');
 const instrumentsRoutes = require('./routes/instruments.routes');
 const ordersRoutes = require('./routes/orders.routes');
+const adminRoutes = require('./routes/admin.routes');
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use('/api/rooms', roomsRoutes);
 app.use('/api/records', recordRoutes);
 app.use('/api/instruments', instrumentsRoutes);
 app.use('/api/orders', ordersRoutes);
+app.use('/api/admin', adminRoutes);
 
 const PORT = config.get('port') || 5000;
 
