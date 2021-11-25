@@ -13,7 +13,7 @@ const Instruments = require('../models/Instruments');
 const db = {
   rooms: Rooms,
   records: Records,
-  instruments: Instruments,
+  instrument: Instruments,
 };
 
 router.post('/all', isAuth, async (req, res) => {
