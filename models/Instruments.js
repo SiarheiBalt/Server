@@ -12,7 +12,7 @@ const schema = new Schema([
             customer: { type: Object },
           },
         ],
-        instrumentId: { type: String },
+        id: { type: String },
       },
     ],
     specifications: [{ type: String }],
