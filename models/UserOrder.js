@@ -10,6 +10,7 @@ const schema = new Schema({
     monthName: { type: String },
   },
   orderId: { type: String },
+  userEmail: { type: String },
   actionTime: { type: String },
   owner: { type: Types.ObjectId, ref: 'User' },
 });
