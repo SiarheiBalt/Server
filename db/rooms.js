@@ -18,9 +18,9 @@ exports.getDayInChosenRoom = async (name, dayId) => {
 };
 
 exports.getDatesInRoom = async (name) => {
-  const instrument = await Rooms.find({ name });
-  const instrumentDates = instrument[0].dates;
-  return instrumentDates;
+  const room = await Rooms.find({ name });
+  const roomDates = room[0].dates;
+  return roomDates;
 };
 
 exports.updateDatesRoom = async (name, newDates) => {
