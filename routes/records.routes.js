@@ -1,35 +1,33 @@
 const { Router } = require('express');
 const { isAuth } = require('../middleWare/auth.middleware');
-const Records = require('../models/Records');
 const router = Router();
 const {
   addReserveToNewDates,
   checkTime,
 } = require('../utils/commonFunc.utils');
 const { createUserOrder } = require('../utils/rooms.utils');
+const {
+  getAllRecords,
+  getDayInChosenRecord,
+  getDatesInRecord,
+  updateDatesRecord,
+} = require('../db/records');
 
 // /api/record/all
 router.get('/all', async (req, res) => {
   try {
-    const records = await Records.find();
+    const records = await getAllRecords();
     res.status(200).json(records);
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong, please try again' });
   }
 });
 
-// /api/record/dates   Take a day in a chosen room
+// /api/record/dates   Take a day
 router.post('/dates', async (req, res) => {
   const { name, dayId } = req.body;
   try {
-    const records = await Records.find(
-      { name },
-      {
-        dates: {
-          $elemMatch: { id: dayId },
-        },
-      }
-    );
+    const records = await getDayInChosenRecord(name, dayId);
     res.status(200).json(records);
   } catch (err) {
     res.status(500).json({ message: 'Something went wrong, please try again' });
@@ -40,8 +38,7 @@ router.post('/dates', async (req, res) => {
 router.post('/time', isAuth, async (req, res) => {
   const { name, dayId, reserveTime, userId } = req.body;
 
-  const records = await Records.find({ name });
-  const recordsDates = records[0].dates;
+  const recordsDates = await getDatesInRecord(name);
 
   const isTimeReserved = !checkTime(recordsDates, dayId, reserveTime);
   if (isTimeReserved) {
@@ -54,7 +51,7 @@ router.post('/time', isAuth, async (req, res) => {
     reserveTime,
     userId
   );
-  await Records.updateOne({ name }, { $set: { dates: newDates } });
+  await updateDatesRecord(name, newDates);
 
   const body = req.body;
   createUserOrder(body);

@@ -6,9 +6,10 @@ const jwt = require('jsonwebtoken');
 const tokenTerm = config.get('expiresIn');
 
 exports.createUser = async (email, password, name) => {
+  const role = 'user';
   const difficultyEncryption = 12;
   const hashePassword = await bcrypt.hash(password, difficultyEncryption); //шифрование пароля
-  const user = new User({ email, password: hashePassword, name }); //создание пользователя
+  const user = new User({ email, password: hashePassword, name, role }); //создание пользователя
   await user.save();
 
   return user;

@@ -1,8 +1,16 @@
 const UserOrder = require('../models/UserOrder');
 
 exports.createUserOrder = async (body) => {
-  const { type, name, dayId, reserveTime, date, orderId, actionTime, userId } =
-    body;
+  const {
+    type,
+    name,
+    dayId,
+    reserveTime,
+    date,
+    actionTime,
+    userEmail,
+    userId,
+  } = body;
 
   const userOrder = new UserOrder({
     type,
@@ -11,6 +19,7 @@ exports.createUserOrder = async (body) => {
     reserveTime,
     date,
     actionTime,
+    userEmail,
     owner: userId,
   });
   await userOrder.save();

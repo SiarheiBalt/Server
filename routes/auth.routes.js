@@ -36,7 +36,13 @@ router.post(
     const { email } = req.body;
     const user = await User.findOne({ email });
     const token = createToken(user);
-    res.json({ token, userId: user.id, name: user.name, email: user.email });
+    res.json({
+      token,
+      userId: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    });
   }
 );
 
